@@ -2,7 +2,7 @@
 NOTE: npx is a fancier, more modern way of running installed packages like mocha
 */
 
-const { fetchBreedDescription } = require("./breedFetcher");
+const { fetchBreedDescription } = require("../breedFetcher");
 const { assert } = require("chai");
 
 describe("fetchBreedDescription", () => {
@@ -22,14 +22,15 @@ describe("fetchBreedDescription", () => {
   });
 
   it("invalid/non-existent breed is passed in", (done) => {
-    fetchBreedDescription("dog", (err, desc) => {
+    fetchBreedDescription("husky", (err, desc) => {
       //error expected here
       assert.equal(err, null);
 
-      const errorDesc = "";
+      // console.log("error description ----------", err);
+      // console.log("description", desc);
 
       //compare returned description
-      assert.equal(errorDesc, desc.trim());
+      assert.equal(null, desc);
 
       done();
     });

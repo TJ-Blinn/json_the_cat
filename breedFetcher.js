@@ -20,18 +20,27 @@ const fetchBreedDescription = function (cmdBreed, cb) {
     // *** deserialization: convert the string version of it into an object first. ***
     const data = JSON.parse(body);
 
+    //console.log({ error });
+
     if (data.length === 0 || error) {
-      //console.log(error);
-      cb(`error: ${error}`, null);
+      //console.log("Reponse ---------", response);
+      const message = new Error(error);
+
+      cb(null, null);
     } else {
+      if (data.message) {
+        return cb(`error ${data.message}`, null);
+      }
+      return cb(null, data[0].description); // string description for a valid breed, via callback
       // console.log(data);
       // console.log("Typeof: ----------", typeof data);
       // console.log("First entry print out: ++++++", data[0].description);
       // const data = JSON.parse(body);
       // cb(error, data[0].description);
-      console.log(`Your results: 
-      Breed name: ${data[0].name} 
-      Breed Description: ${data[0].description}.`);
+
+      // console.log(`Your results:
+      // Breed name: ${data[0].name}
+      // Breed Description: ${data[0].description}.`);
     }
   });
 };
